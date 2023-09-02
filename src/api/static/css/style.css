@@ -1,0 +1,30 @@
+:root {
+    --color-main: #E9A072;
+    --color-second: #73BBC5;
+    --color-text: #45505B;
+    --color-white: #FFFFFF;
+    --color-debug: #006400;
+    --color-grey: #F2F3F5;
+    --font-Raleway: "Raleway", sans-serif;
+    --font-Poppins: "Poppins", sans-serif;
+
+    --font-Open: "Open sans", sans-serif;
+    --font-Bitter: "Passion One", sans-serif;
+  }
+
+body{
+    background: white;
+    color: grey;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+a{
+    color: #73BBC5;
+    text-decoration: none;
+}
+
+h1{
+    color: #E9A072;
+}
