@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes App</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+    <h1>{{ title }}</h1>
+
+    <form>
+        <input id="client_name"  type="username" name="username" placeholder="username"/>
+        <input id="client_password"  type="password" name="pwd" placeholder="password"/>
+
+        <button id="log_in_button" class="button">Log In</button>
+    </form>
+    <a class="button" href="{% url 'notes' %}">return</a>
+
+</body>
+</html>
