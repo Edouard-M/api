@@ -40,3 +40,13 @@ h1{
 button{
     cursor: pointer;
 }
+
+.error_message{
+    display: flex;
+    font-size: 14px;
+    color: red;
+    width: 100%;
+    height: 3rem;
+    justify-content: center;
+    align-items: center;
+}
