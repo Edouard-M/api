@@ -1,0 +1,8 @@
+{
+    "flake8.severity": {
+        "E": "Warning",
+        "F": "Warning",
+        "I": "Information",
+        "W": "Warning",
+      },
+}
