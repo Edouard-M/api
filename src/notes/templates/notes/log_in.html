@@ -10,7 +10,8 @@
 
     <h1>{{ title }}</h1>
 
-    <form>
+    <form class="client_form" method="post">
+        {% csrf_token %}
         <input id="client_name"  type="username" name="username" placeholder="username"/>
         <input id="client_password"  type="password" name="pwd" placeholder="password"/>
 

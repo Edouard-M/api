@@ -17,6 +17,14 @@ def log_in(request):
         "title": "Log In",
     }
 
+    if request.method == "POST":
+        username = request.POST.get("username", None)
+        password = request.POST.get("pwd", None)
+
+        if username and password:
+            client = Client.objects.get(username=username)
+            print(f"Loged In: {client}>")
+
     return render(request, "notes/log_in.html", context=context)
 
 
@@ -31,14 +39,12 @@ def sign_in(request):
         username = request.POST.get("username", None)
         email = request.POST.get("email", None)
         password = request.POST.get("pwd", None)
-        print(f"<Username = {username} - email={email} - password={password}>")
 
         if username and password:
             try:
                 Client.objects.create(username=username, password=password)
+                print(f"Signed In: <Username = {username} - email={email} - password={password}>")
             except Exception as er:
-                print(f"Error: {er}")
                 context["error"] = er
-                # raise Exception(er)
 
     return render(request, "notes/sign_in.html", context=context)

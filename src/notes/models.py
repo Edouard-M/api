@@ -9,4 +9,7 @@ class Client(models.Model):
     created = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"<Client: {self.username}, email={self.email} ({self.created})>"
+        if self.email:
+            return f"<Client: {self.username}, email={self.email} ({self.created})>"
+        else:
+            return f"<Client: {self.username} ({self.created})>"
