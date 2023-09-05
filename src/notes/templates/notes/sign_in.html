@@ -10,12 +10,14 @@
 
     <h1>{{ title }}</h1>
 
-    <form>
+    <form class="note_form" method="post">
+        {% csrf_token %}
         <input id="client_name"  type="username" name="username" placeholder="username"/>
         <input id="client_email"  type="text" name="email" placeholder="email"/>
         <input id="client_password"  type="password" name="pwd" placeholder="password"/>
 
-        <button id="sign_in_button" class="button">Sign In</button>
+        <button type="submit" id="sign_in_button" class="button">Sign In</button>
+        <button type="submit" onclick="location.href='{% url 'notes' %}'" class="button">Sign In</button>
     </form>
     <a class="button" href="{% url 'notes' %}">return</a>
 

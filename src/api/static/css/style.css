@@ -20,11 +20,23 @@ body{
     align-items: center;
 }
 
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
 a{
     color: #73BBC5;
     text-decoration: none;
+    margin: 1rem 0rem 1rem 0rem;
+
 }
 
 h1{
     color: #E9A072;
+}
+
+button{
+    cursor: pointer;
 }
