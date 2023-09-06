@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .models import Client
 
 
@@ -17,13 +17,27 @@ def log_in(request):
         "title": "Log In",
     }
 
+    request.session['client'] = None
+
     if request.method == "POST":
         username = request.POST.get("username", None)
         password = request.POST.get("pwd", None)
 
         if username and password:
-            client = Client.objects.get(username=username)
-            print(f"Loged In: {client}>")
+            try:
+                client = Client.objects.get(username=username)
+
+                if password == client.password:
+                    request.session['client'] = client.username
+                    print(f"Loged In: {client}>")
+                    return redirect("dashboard")
+                else:
+                    print("Wrong Password")
+
+            except Exception as er:
+                print(f"Wrong Username: {er}")
+        else:
+            print("Username and Password are mandatory")
 
     return render(request, "notes/log_in.html", context=context)
 
@@ -44,7 +58,23 @@ def sign_in(request):
             try:
                 Client.objects.create(username=username, password=password)
                 print(f"Signed In: <Username = {username} - email={email} - password={password}>")
+                return redirect("dashboard")
             except Exception as er:
                 context["error"] = er
 
     return render(request, "notes/sign_in.html", context=context)
+
+
+def dashboard(request):
+
+    client: Client = request.session.get('client')
+
+    if not client:
+        print("Access Denied")
+        return redirect("notes")
+
+    context = {
+        "title": f"Dashboard: {client}",
+    }
+
+    return render(request, "notes/dashboard.html", context=context)
