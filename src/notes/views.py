@@ -1,8 +1,15 @@
 from django.shortcuts import redirect, render
-from .models import Client
+from django.contrib import messages
+from django.db.models import Q
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User, BaseUserManager
+from django.contrib.auth.decorators import login_required
 
 
 def notes(request):
+
+    if request.user.is_authenticated:
+        return redirect("dashboard")
 
     context = {
         "title": "Notes App",
@@ -13,36 +20,37 @@ def notes(request):
 
 def log_in(request):
 
+    if request.user.is_authenticated:
+        return redirect("dashboard")
+
     context = {
         "title": "Log In",
     }
-
-    request.session['client'] = None
 
     if request.method == "POST":
         username = request.POST.get("username", None)
         password = request.POST.get("pwd", None)
 
-        if username and password:
-            try:
-                client = Client.objects.get(username=username)
+        try:
+            user = User.objects.get(username=username)
+        except Exception as er:
+            messages.error(request, 'User does not exist')
 
-                if password == client.password:
-                    request.session['client'] = client.username
-                    print(f"Loged In: {client}>")
-                    return redirect("dashboard")
-                else:
-                    print("Wrong Password")
+        user = authenticate(request, username=username, password=password)
 
-            except Exception as er:
-                print(f"Wrong Username: {er}")
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard')
         else:
-            print("Username and Password are mandatory")
+            messages.error(request, 'username OR password does not exist')
 
     return render(request, "notes/log_in.html", context=context)
 
 
 def sign_in(request):
+
+    if request.user.is_authenticated:
+        return redirect("dashboard")
 
     context = {
         "title": "Sign In",
@@ -56,25 +64,28 @@ def sign_in(request):
 
         if username and password:
             try:
-                Client.objects.create(username=username, password=password)
-                print(f"Signed In: <Username = {username} - email={email} - password={password}>")
-                return redirect("dashboard")
+                user = User.objects.create_user(username=username, email=email, password=password)
+                print(f"user created = {user}")
+                return redirect('dashboard')
             except Exception as er:
-                context["error"] = er
+                messages.error(request, er)
+                print(f"Error = {er}")
 
     return render(request, "notes/sign_in.html", context=context)
 
 
+def logout_user(request):
+    logout(request)
+    return redirect("notes")
+
+
+@login_required(login_url='notes')
 def dashboard(request):
 
-    client: Client = request.session.get('client')
-
-    if not client:
-        print("Access Denied")
-        return redirect("notes")
+    user = request.user
 
     context = {
-        "title": f"Dashboard: {client}",
+        "title": f"Dashboard: {user}",
     }
 
     return render(request, "notes/dashboard.html", context=context)

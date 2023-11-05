@@ -18,6 +18,15 @@
 
         <button type="submit" id="sign_in_button" class="button">Sign In</button>
     </form>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
     {% if error %}
     <div class="error_message">{{error}}</div>
     {% else %}
