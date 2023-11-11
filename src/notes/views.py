@@ -86,6 +86,7 @@ def dashboard(request):
 
     context = {
         "title": f"Dashboard: {user}",
+        "user": f"{user}"
     }
 
     return render(request, "notes/dashboard.html", context=context)

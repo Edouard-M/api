@@ -69,6 +69,7 @@ button{
     border-radius: 10px;
     background-color: green;
     color: black;
+    text-align: center;
 }
 
 .notes__container--notes:hover{
