@@ -4,8 +4,6 @@ from django.contrib.auth.models import User
 class Tag(models.Model):
     title = models.CharField(null=False, max_length=20)
 
-    #user = models.CharField(null=True, max_length=20)
-
     user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, default=123)
 
     def __str__(self):
@@ -19,7 +17,6 @@ class Note(models.Model):
 
     tags = models.ManyToManyField(Tag)
 
-    #user = models.CharField(null=True, max_length=20)
     user = models.ForeignKey(User, null=False, on_delete=models.CASCADE, default=123)
 
     def __str__(self):
