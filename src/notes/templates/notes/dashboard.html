@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Notes App</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/notes/dashboard.css' %}">
 </head>
 <body>
 
@@ -15,6 +15,12 @@
     {% else %}
     <a href="{% url 'log-in' %}">Login<a/>
     {% endif %}
+
+    <div class="notes__container">
+        <div class="notes__container--notes">NOTE HERE</div>
+        <div class="notes__container--notes">NOTE HERE</div>
+        <div class="notes__container--notes">NOTE HERE</div>
+    </div>
 
     <a class="button" href="{% url 'notes' %}">return</a>
 

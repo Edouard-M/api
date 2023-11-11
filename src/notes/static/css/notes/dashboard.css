@@ -53,3 +53,25 @@ button{
     justify-content: center;
     align-items: center;
 }
+
+.notes__container{
+    display: flex;
+    flex-direction: column;
+    background-color: grey;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+}
+
+.notes__container--notes{
+    margin: 3px;
+    padding: 5px;
+    border-radius: 10px;
+    background-color: green;
+    color: black;
+}
+
+.notes__container--notes:hover{
+    background-color: red;
+    cursor: pointer;
+}
