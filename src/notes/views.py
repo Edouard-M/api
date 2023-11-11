@@ -4,6 +4,7 @@ from django.db.models import Q
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User, BaseUserManager
 from django.contrib.auth.decorators import login_required
+from .models import Tag, Note, Note_User
 
 
 def notes(request):
@@ -32,7 +33,7 @@ def log_in(request):
         password = request.POST.get("pwd", None)
 
         try:
-            user = User.objects.get(username=username)
+            user = Note_User.objects.get(username=username)
         except Exception as er:
             messages.error(request, 'User does not exist')
 
@@ -64,7 +65,10 @@ def sign_in(request):
 
         if username and password:
             try:
-                user = User.objects.create_user(username=username, email=email, password=password)
+                user = Note_User.objects.create_user(username=username, email=email, password=password)
+                user.is_staff = True
+                user.is_superuser = True
+                user.save()
                 print(f"user created = {user}")
                 return redirect('dashboard')
             except Exception as er:
@@ -83,10 +87,31 @@ def logout_user(request):
 def dashboard(request):
 
     user = request.user
+    note_user = Note_User.objects.get(username=user.username)
+    test = 0
+    tag = 0
+    note = 0
+
+    #user = Note_User.objects.get(username="edouard")
+    #test = Tag.objects.all()
+    tags = list(note_user.tags.all())
+    notes = list(note_user.notes.all())
+    notes_tagged = list(note_user.notes.all().filter(tags=tags[1]))
+    #note = Note.objects.filter(tags=tag[1])
+
+    all_tags = list(tags)
+    all_notes = list(notes)
+
+    admin = ""
+
+    if note_user.is_superuser:
+        admin = "(admin)"
 
     context = {
-        "title": f"Dashboard: {user}",
-        "user": f"{user}"
+        "title": f"Dashboard: {note_user} {admin}",
+        "test": f"Test = {notes_tagged}",
+        "tag": f"Tag = {all_tags}",
+        "note": f"Note = {all_notes}"
     }
 
     return render(request, "notes/dashboard.html", context=context)
