@@ -5,7 +5,7 @@ class Tag(models.Model):
     title = models.CharField(null=False, max_length=20)
 
     def __str__(self):
-        return f"{self.title}"
+        return f"Tag : {self.title}"
 
 
 class Note(models.Model):
@@ -16,7 +16,7 @@ class Note(models.Model):
     tags = models.ManyToManyField(Tag)
 
     def __str__(self):
-        return f"{self.title}"
+        return f"Note : {self.title}"
 
 
 class Note_User(User):

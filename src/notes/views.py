@@ -99,19 +99,25 @@ def dashboard(request):
     notes_tagged = list(note_user.notes.all().filter(tags=tags[1]))
     #note = Note.objects.filter(tags=tag[1])
 
-    all_tags = list(tags)
-    all_notes = list(notes)
-
     admin = ""
 
     if note_user.is_superuser:
         admin = "(admin)"
 
+    if request.method == "POST":
+        t = request.POST.get("truc", None)
+        print(f"t = {t}")
+
     context = {
         "title": f"Dashboard: {note_user} {admin}",
+
         "test": f"Test = {notes_tagged}",
-        "tag": f"Tag = {all_tags}",
-        "note": f"Note = {all_notes}"
+        "tag": f"Tag = {tags}",
+        "note": f"Note = {notes}",
+
+        "tags": tags,
     }
+
+
 
     return render(request, "notes/dashboard.html", context=context)
