@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes App</title>
+    <link rel="stylesheet" href="{% static 'css/notes/new_note.css' %}">
+</head>
+<body>
+
+    <h1>{{ title }}</h1>
+
+    <div class="note__container">
+        <form class="new_note__container" method="post">
+                {% csrf_token %}
+            <div class="input_container">
+                <input id="title"  type="title" name="title" placeholder="Title"/>
+                <input id="cmd"  type="cmd" name="cmd" placeholder="Command"/>
+                <input id="description"  type="description" name="description" placeholder="Description"/>
+
+                <button type="submit" id="button" class="button">Create Note</button>
+            </div>
+            <fieldset class="fieldset__checkbox">
+                <legend>Select Tag(s)</legend>
+                {% for tag in tags %}
+                <div class="tag__checkbox">
+                    <input type="checkbox" name="tag_select" id="{{ tag.title }}" value={{ tag.id }}>
+                    <label class="label" for="{{ tag.title }}"> {{ tag.title }}</label>
+                    <button class="test" type="test" name="delete" value={{ tag.id }}>X</button>
+                </div>
+                {% endfor %}
+            </fieldset>
+        </form>
+
+        <div class="new_tag_container">
+            <form class="new_note__container" method="post">
+                {% csrf_token %}
+                <input id="Tag"  type="Tag" name="Tag" placeholder="new Tag"/>
+                <button type="submit" name="new_tag" id="button" class="button">New Tag</button>
+            </form>
+        </div>
+
+    </div>
+
+    <a class="button" href="{% url 'dashboard' %}">return</a>
+
+</body>
+</html>

@@ -16,19 +16,38 @@
     <a href="{% url 'log-in' %}">Login<a/>
     {% endif %}
 
-    <div class="tags__list">
-    {% for tag in tags %}
-        <form class="client_form" method="post">
+    <a href="{% url 'new_note' %}">New Note<a/>
+
+    <form class="" method="post">
+        <div class="tags__list">
             {% csrf_token %}
-            <button  value={{ tag.title }} name="truc" class="tags__list--tag">{{ tag.title }}</button>
-        </form>
-    {% endfor %}
-    </div>
+
+            {% if tag_selected == all %}
+                <button value="all" name="tag" class="tags__list--tag--selected">all</button>
+            {% else %}
+                <button value="all" name="tag" class="tags__list--tag">all</button>
+            {% endif %}
+
+            {% for tag in tags %}
+                {% if tag == tag_selected %}
+                    <button value={{ tag.id }} name="tag" class="tags__list--tag--selected">{{ tag.title }}</button>
+                {% else %}
+                    <button value={{ tag.id }} name="tag" class="tags__list--tag">{{ tag.title }}</button>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </form>
 
     <div class="notes__container">
-        <div class="notes__container--notes">{{ test }}</div>
-        <div class="notes__container--notes">{{ tag }}</div>
-        <div class="notes__container--notes">{{ note }}</div>
+        {% if tag_selected %}
+            {% for note in notes_taged %}
+            <div class="notes__container--notes">{{ note.title }}</div>
+            {% endfor %}
+        {% else %}
+            {% for note in all_notes %}
+            <div class="notes__container--notes">{{ note.title }}</div>
+            {% endfor %}
+        {% endif %}
     </div>
 
     <a class="button" href="{% url 'notes' %}">return</a>

@@ -88,36 +88,107 @@ def dashboard(request):
 
     user = request.user
     note_user = Note_User.objects.get(username=user.username)
-    test = 0
-    tag = 0
-    note = 0
-
-    #user = Note_User.objects.get(username="edouard")
-    #test = Tag.objects.all()
     tags = list(note_user.tags.all())
-    notes = list(note_user.notes.all())
-    notes_tagged = list(note_user.notes.all().filter(tags=tags[1]))
-    #note = Note.objects.filter(tags=tag[1])
+
+    tag_selected = None
+    tag_filter = "all"
+    notes_tagged = None
+
+    if request.method == "POST":
+        tag_filter = request.POST.get("tag", None)
+        if tag_filter != "all":
+            #tag_selected = note_user.tags.all().filter(id=tag_filter).first()
+            tag_selected = Tag.objects.get(id=tag_filter)
+            notes_tagged = list(note_user.notes.all().filter(tags=tag_selected))
+
+    all_notes = None
+    if tag_filter == "all":
+        tag_selected = None
+        all_notes = list(note_user.notes.all())
 
     admin = ""
 
     if note_user.is_superuser:
         admin = "(admin)"
 
-    if request.method == "POST":
-        t = request.POST.get("truc", None)
-        print(f"t = {t}")
-
     context = {
         "title": f"Dashboard: {note_user} {admin}",
 
-        "test": f"Test = {notes_tagged}",
-        "tag": f"Tag = {tags}",
-        "note": f"Note = {notes}",
+        "tags": tags,
+        "tag_selected": tag_selected,
 
+        "all_notes": all_notes,
+        "notes_taged": notes_tagged,
+    }
+
+    return render(request, "notes/dashboard.html", context=context)
+
+
+@login_required(login_url='new_note')
+def new_note(request):
+    user = request.user
+    note_user = Note_User.objects.get(username=user.username)
+
+    tags = list(note_user.tags.all())
+
+    tags_selected = []
+
+    if request.method == "POST":
+
+        if 'delete' in request.POST:
+            tag_id = request.POST.get('delete')
+            tag = Tag.objects.get(id=tag_id)
+            tag.delete()
+            return redirect('new_note')
+        else:
+
+            new_tag_title = request.POST.get('Tag')
+
+            if 'new_tag' in request.POST:
+                if new_tag_title:
+                    if len(list(filter(lambda tag: tag.title==new_tag_title, tags))) == 0:
+                        try:
+                            new_tag = Tag.objects.create(title=new_tag_title)
+                            new_tag.save()
+                            note_user.tags.add(new_tag)
+                            note_user.save()
+                            print(f"Tag created = {new_tag}")
+                            return redirect('new_note')
+                        except Exception as er:
+                                messages.error(request, er)
+                                print(f"Error = {er}")
+                    else:
+                        print(f"Error = Tag already exist")
+            else:
+
+                tags_selected = request.POST.getlist('tag_select')
+
+                title = request.POST.get("title", None)
+                code = request.POST.get("cmd", None)
+                description = request.POST.get("description", None)
+
+                tags_to_add = []
+                for tag in tags_selected:
+                    tags_to_add.append(Tag.objects.get(id=tag))
+
+                if title and tags_to_add:
+                    try:
+                        note = Note.objects.create(title=title, code=code, description=description)
+                        note.tags.set(tags_to_add)
+                        note.save()
+                        note_user.notes.add(note)
+                        note_user.save()
+                        print(f"Note created = {note}")
+                        return redirect('dashboard')
+                    except Exception as er:
+                        messages.error(request, er)
+                        print(f"Error = {er}")
+
+
+
+    context = {
+        "title": f"New Note {note_user}",
         "tags": tags,
     }
 
-
-
-    return render(request, "notes/dashboard.html", context=context)
+    return render(request, "notes/new_note.html", context=context)
