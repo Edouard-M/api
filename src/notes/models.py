@@ -1,8 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import User
+from colorfield.fields import ColorField
 
 class Tag(models.Model):
     title = models.CharField(null=False, max_length=20)
+
+    color = ColorField(format="hexa", default="#000000")
 
     def __str__(self):
         return f"Tag : {self.title}"

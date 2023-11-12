@@ -95,11 +95,18 @@ def dashboard(request):
     notes_tagged = None
 
     if request.method == "POST":
-        tag_filter = request.POST.get("tag", None)
-        if tag_filter != "all":
-            #tag_selected = note_user.tags.all().filter(id=tag_filter).first()
-            tag_selected = Tag.objects.get(id=tag_filter)
-            notes_tagged = list(note_user.notes.all().filter(tags=tag_selected))
+        if 'delete' in request.POST:
+            note_id = request.POST.get('delete')
+            note = Note.objects.get(id=note_id)
+            print(f"delete {note}")
+            note.delete()
+            return redirect('dashboard')
+        else:
+            tag_filter = request.POST.get("tag", None)
+            if tag_filter != "all":
+                #tag_selected = note_user.tags.all().filter(id=tag_filter).first()
+                tag_selected = Tag.objects.get(id=tag_filter)
+                notes_tagged = list(note_user.notes.all().filter(tags=tag_selected))
 
     all_notes = None
     if tag_filter == "all":

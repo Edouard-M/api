@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'livereload', # live reload
     'django.contrib.staticfiles',
+    'colorfield', # color field
     'notes',
 ]
 
