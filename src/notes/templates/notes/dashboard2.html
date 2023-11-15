@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notes App</title>
+    <link rel="stylesheet" href="{% static 'css/notes/dashboard2.css' %}">
+</head>
+<body>
+
+    <h1>{{ title }}</h1>
+
+    {% if request.user.is_authenticated %}
+    <a href="{% url 'log-out' %}">Logout<a/>
+    {% else %}
+    <a href="{% url 'log-in' %}">Login<a/>
+    {% endif %}
+
+    <a href="{% url 'new_note' %}">New Note<a/>
+
+    <form class="" method="post">
+        <div class="tags__list">
+            {% csrf_token %}
+
+            {% if tag_selected == all %}
+                <button value="all" name="tag" class="tags__list--tag--selected--all">all</button>
+            {% else %}
+                <button value="all" name="tag" class="tags__list--tag--all">all</button>
+            {% endif %}
+
+            {% for tag in tags %}
+                {% if tag == tag_selected %}
+                    <button value={{ tag.id }} name="tag" class="tags__list--tag--selected" style="--tag_color: {{tag.color}}">{{ tag.title }}</button>
+                {% else %}
+                    <button value={{ tag.id }} name="tag" class="tags__list--tag" style="--tag_color: {{tag.color}}">{{ tag.title }}</button>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </form>
+
+    <form class="notes__container"  method="post">
+        {% csrf_token %}
+        {% if tag_selected %}
+            {% for note in notes_taged %}
+            <div class="notes__container--notes">
+                <div>{{ note.title }}</div>
+                <button class="test" name="delete" value={{ note.id }}>X</button>
+            </div>
+            {% endfor %}
+        {% else %}
+            {% for note in all_notes %}
+            <div class="notes__container--notes">
+                <div>{{ note.title }}</div>
+                <button class="test" name="delete" value={{ note.id }}>X</button>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </form>
+
+    <a class="button" href="{% url 'notes' %}">return</a>
+
+</body>
+</html>

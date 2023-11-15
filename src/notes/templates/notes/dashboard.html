@@ -8,56 +8,31 @@
 </head>
 <body>
 
-    <h1>{{ title }}</h1>
+    <div class="dashboard_container">
+        <div class="select_container">
 
-    {% if request.user.is_authenticated %}
-    <a href="{% url 'log-out' %}">Logout<a/>
-    {% else %}
-    <a href="{% url 'log-in' %}">Login<a/>
-    {% endif %}
-
-    <a href="{% url 'new_note' %}">New Note<a/>
-
-    <form class="" method="post">
-        <div class="tags__list">
-            {% csrf_token %}
-
-            {% if tag_selected == all %}
-                <button value="all" name="tag" class="tags__list--tag--selected--all">all</button>
-            {% else %}
-                <button value="all" name="tag" class="tags__list--tag--all">all</button>
-            {% endif %}
-
-            {% for tag in tags %}
-                {% if tag == tag_selected %}
-                    <button value={{ tag.id }} name="tag" class="tags__list--tag--selected" style="--tag_color: {{tag.color}}">{{ tag.title }}</button>
-                {% else %}
-                    <button value={{ tag.id }} name="tag" class="tags__list--tag" style="--tag_color: {{tag.color}}">{{ tag.title }}</button>
-                {% endif %}
-            {% endfor %}
         </div>
-    </form>
+        <div class="notes_container">
 
-    <form class="notes__container"  method="post">
-        {% csrf_token %}
-        {% if tag_selected %}
-            {% for note in notes_taged %}
-            <div class="notes__container--notes">
-                <div>{{ note.title }}</div>
-                <button class="test" name="delete" value={{ note.id }}>X</button>
-            </div>
-            {% endfor %}
-        {% else %}
+            {% csrf_token %}
             {% for note in all_notes %}
-            <div class="notes__container--notes">
-                <div>{{ note.title }}</div>
-                <button class="test" name="delete" value={{ note.id }}>X</button>
-            </div>
+                <div class="note">
+                    <div class="note_left">
+                        <div class="note_left_title">Launch Django Server</div>
+                        <div class="note_left_code_container">
+                            <div class="note_left_code">manage.py runserver</div>
+                            <div class="note_left_copy">O</div>
+                        </div>
+                    </div>
+                    <div class="note_right">
+                        <div class="note_right_button"> V </div>
+                    </div>
+                </div>
             {% endfor %}
-        {% endif %}
-    </form>
 
-    <a class="button" href="{% url 'notes' %}">return</a>
+        </div>
+    </div>
+
 
 </body>
 </html>
