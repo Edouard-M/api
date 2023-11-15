@@ -9,9 +9,17 @@
 <body>
 
     <div class="dashboard_container">
-        <div class="select_container">
 
+        <div class="select_container">
+            {% csrf_token %}
+            {% for tag in tags %}
+            <div class="select" style="--tag_color: {{tag.color}}">
+                <div class="select_color"></div>
+                <div class="select_text">{{ tag.title }}</div>
+            </div>
+            {% endfor %}
         </div>
+
         <div class="notes_container">
 
             {% csrf_token %}
