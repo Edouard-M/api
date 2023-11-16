@@ -11,6 +11,12 @@
     --font-Open: "Open sans", sans-serif;
     --font-Bitter: "Passion One", sans-serif;
 
+
+    --color-text-accent: #153E5C;
+    --color-text-accent: red;
+    --color-accent: #039DE0;
+    --color-accent: green;
+
     --font-New: LatoWeb, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
   }
 
@@ -21,6 +27,23 @@ body{
     align-items: center;
 
     font-family: var(--font-New);
+}
+
+.dashboard{
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+}
+
+.dashboard_header{
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    height: 3rem;
+
+    background-color: grey;
 }
 
 .dashboard_container{
@@ -106,7 +129,7 @@ body{
     padding: 12px;
     border-radius: 0.5rem;
     background-color: #FFFFFF;
-    color: #153E5C;
+    color: var(--color-text-accent);
     box-shadow: rgba(89, 112, 145, 0.12) 0px 8px 24px 0px;
     outline: rgb(21, 62, 92) dashed 0px;
 
@@ -132,7 +155,7 @@ body{
     align-items: center;
     height: 35px;
 
-    color: #153E5C;
+    color: var(--color-text-accent);
     font-weight: 400;
     font-size: 0.85rem;
 }
@@ -169,7 +192,7 @@ body{
     align-items: center;
 
     color: #FFFFFF;
-    background-color: #039DE0;
+    background-color: var(--color-accent);
 
     border-radius: 0 0.5rem 0.5rem 0;
     height: 100%;
@@ -194,7 +217,7 @@ body{
     align-items: center;
 
     background-color: #F0FBFF;
-    color: #153E5C;
+    color: var(--color-text-accent);
     width: 2.8rem;
     height: 2.8rem;
 

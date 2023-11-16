@@ -8,36 +8,40 @@
 </head>
 <body>
 
-    <div class="dashboard_container">
-
-        <div class="select_container">
-            {% csrf_token %}
-            {% for tag in tags %}
-            <div class="select" style="--tag_color: {{tag.color}}">
-                <div class="select_color"></div>
-                <div class="select_text">{{ tag.title }}</div>
-            </div>
-            {% endfor %}
+    <div class="dashboard">
+        <div class="dashboard_header">
         </div>
+        <div class="dashboard_container">
 
-        <div class="notes_container">
+            <div class="select_container">
+                {% csrf_token %}
+                {% for tag in tags %}
+                <div class="select" style="--tag_color: {{tag.color}}">
+                    <div class="select_color"></div>
+                    <div class="select_text">{{ tag.title }}</div>
+                </div>
+                {% endfor %}
+            </div>
 
-            {% csrf_token %}
-            {% for note in all_notes %}
-                <div class="note">
-                    <div class="note_left">
-                        <div class="note_left_title">Launch Django Server</div>
-                        <div class="note_left_code_container">
-                            <div class="note_left_code">manage.py runserver</div>
-                            <div class="note_left_copy">O</div>
+            <div class="notes_container">
+
+                {% csrf_token %}
+                {% for note in all_notes %}
+                    <div class="note">
+                        <div class="note_left">
+                            <div class="note_left_title">Launch Django Server</div>
+                            <div class="note_left_code_container">
+                                <div class="note_left_code">manage.py runserver</div>
+                                <div class="note_left_copy">O</div>
+                            </div>
+                        </div>
+                        <div class="note_right">
+                            <div class="note_right_button"> V </div>
                         </div>
                     </div>
-                    <div class="note_right">
-                        <div class="note_right_button"> V </div>
-                    </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
 
+            </div>
         </div>
     </div>
 
