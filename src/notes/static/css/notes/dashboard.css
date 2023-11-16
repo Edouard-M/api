@@ -148,10 +148,14 @@ body{
     outline: var(--color-text-accent) dashed 0px;
 
     cursor: pointer;
+    transition: 300ms cubic-bezier(0.4,0.01,0.165,0.99);
+    height:70px;
 }
 
 .note:hover{
     box-shadow: 0 .5rem 1.5rem var(--shadow-note-hover);
+
+    height:150px;
 }
 
 .note_left{
@@ -218,7 +222,6 @@ body{
     display: flex;
     flex-direction: column;
 
-    justify-content: center;
     align-items: center;
 
     flex: 1;
@@ -236,7 +239,11 @@ body{
     height: 2.8rem;
 
     border-radius: 0.5rem;
+    margin-top: 0.7rem;
 }
 
+.note:hover > .note_right > .note_right_button{
+    transform: rotate(180deg);
+}
 
 
