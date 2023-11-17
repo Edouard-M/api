@@ -13,15 +13,22 @@
         </div>
         <div class="dashboard_container">
 
-            <div class="select_container">
+            <form class="select_container" method="post">
                 {% csrf_token %}
                 {% for tag in tags %}
-                <div class="select" style="--tag_color: {{tag.color}}">
-                    <div class="select_color"></div>
-                    <div class="select_text">{{ tag.title }}</div>
-                </div>
+                    {% if tag == tag_selected %}
+                        <button value={{ tag.id }} name="tag" class="select-selected" style="--tag_color: {{tag.color}}">
+                            <div class="select_color"></div>
+                            <div class="select_text">{{ tag.title }}</div>
+                        </button>
+                    {% else %}
+                        <button value={{ tag.id }} name="tag" class="select" style="--tag_color: {{tag.color}}">
+                            <div class="select_color"></div>
+                            <div class="select_text">{{ tag.title }}</div>
+                        </button>
+                    {% endif %}
                 {% endfor %}
-            </div>
+            </form>
 
             <div class="notes_container">
 
