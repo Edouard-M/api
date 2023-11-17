@@ -13,7 +13,7 @@
         </div>
         <div class="dashboard_container">
 
-            <form class="select_container" method="post">
+            <div class="select_container" method="post">
                 {% csrf_token %}
                 {% if tag_selected == all %}
                     <button value="all" name="tag" class="select-selected" style="--tag_color: black">
@@ -28,18 +28,18 @@
                 {% endif %}
                 {% for tag in tags %}
                     {% if tag == tag_selected %}
-                        <button value={{ tag.id }} name="tag" class="select-selected" style="--tag_color: {{tag.color}}">
+                        <button id="tag_select" value={{ tag.id }} name="tag" class="select-selected" style="--tag_color: {{tag.color}}">
                             <div class="select_color"></div>
                             <div class="select_text">{{ tag.title }}</div>
                         </button>
                     {% else %}
-                        <button value={{ tag.id }} name="tag" class="select" style="--tag_color: {{tag.color}}">
+                        <button id="tag_select" value={{ tag.id }} name="tag" class="select" style="--tag_color: {{tag.color}}">
                             <div class="select_color"></div>
                             <div class="select_text">{{ tag.title }}</div>
                         </button>
                     {% endif %}
                 {% endfor %}
-            </form>
+            </div>
 
             <div class="notes_container">
 
@@ -80,6 +80,6 @@
         </div>
     </div>
 
-
+    <script src="../js/dashboard.js"></script>
 </body>
 </html>

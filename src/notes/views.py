@@ -90,6 +90,7 @@ def dashboard(request):
     note_user = Note_User.objects.get(username=user.username)
     tags = list(note_user.tags.all())
 
+
     tag_selected = None
     tag_filter = "all"
     notes_tagged = None
@@ -109,7 +110,9 @@ def dashboard(request):
                 tag_selected = Tag.objects.get(id=tag_filter)
                 notes_tagged = list(note_user.notes.all().filter(tags=tag_selected))
 
+    print("Test 1")
     if tag_filter == "all":
+        print("Test 2")
         tag_selected = None
         all_notes = list(note_user.notes.all())
 
