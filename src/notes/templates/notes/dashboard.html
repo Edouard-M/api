@@ -15,6 +15,17 @@
 
             <form class="select_container" method="post">
                 {% csrf_token %}
+                {% if tag_selected == all %}
+                    <button value="all" name="tag" class="select-selected" style="--tag_color: black">
+                        <div class="select_color"></div>
+                        <div class="select_text">all</div>
+                    </button>
+                {% else %}
+                    <button value="all" name="tag" class="select" style="--tag_color: black">
+                        <div class="select_color"></div>
+                        <div class="select_text">all</div>
+                    </button>
+                {% endif %}
                 {% for tag in tags %}
                     {% if tag == tag_selected %}
                         <button value={{ tag.id }} name="tag" class="select-selected" style="--tag_color: {{tag.color}}">
@@ -33,20 +44,37 @@
             <div class="notes_container">
 
                 {% csrf_token %}
-                {% for note in all_notes %}
-                    <div class="note">
-                        <div class="note_left">
-                            <div class="note_left_title">Launch Django Server</div>
-                            <div class="note_left_code_container">
-                                <div class="note_left_code">manage.py runserver</div>
-                                <div class="note_left_copy">O</div>
+                {% if tag_selected %}
+                    {% for note in notes_taged %}
+                        <div class="note">
+                            <div class="note_left">
+                                <div class="note_left_title">{{ note.title }}</div>
+                                <div class="note_left_code_container">
+                                    <div class="note_left_code">{{ note.code }}</div>
+                                    <div class="note_left_copy">O</div>
+                                </div>
+                            </div>
+                            <div class="note_right">
+                                <div class="note_right_button"> V </div>
                             </div>
                         </div>
-                        <div class="note_right">
-                            <div class="note_right_button"> V </div>
+                    {% endfor %}
+                {% else %}
+                    {% for note in all_notes %}
+                        <div class="note">
+                            <div class="note_left">
+                                <div class="note_left_title">{{ note.title }}</div>
+                                <div class="note_left_code_container">
+                                    <div class="note_left_code">{{ note.code }}</div>
+                                    <div class="note_left_copy">O</div>
+                                </div>
+                            </div>
+                            <div class="note_right">
+                                <div class="note_right_button"> V </div>
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                {% endif %}
 
             </div>
         </div>
