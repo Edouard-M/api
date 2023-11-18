@@ -7,43 +7,26 @@
     <link rel="stylesheet" href="{% static 'css/notes/dashboard.css' %}">
 </head>
 <body>
+    <input type="hidden" id="all_notes" data-table={{ all_notes }}>
 
     <div class="dashboard">
         <div class="dashboard_header">
         </div>
         <div class="dashboard_container">
-
             <div class="select_container" method="post">
-                {% csrf_token %}
-                {% if tag_selected == all %}
-                    <button value="all" name="tag" class="select-selected" style="--tag_color: black">
-                        <div class="select_color" style="background-color: rgba(0,0,0,1)"></div>
-                        <div class="select_text">all</div>
-                    </button>
-                {% else %}
-                    <button value="all" name="tag" class="select" style="--tag_color: black">
-                        <div class="select_color" style="background-color: rgba(0,0,0,1)"></div>
-                        <div class="select_text">all</div>
-                    </button>
-                {% endif %}
+                <button id="all" value="all" name="tag_select" class="select" style="--tag_color: black">
+                    <div class="select_color" style="background-color: rgba(0,0,0,1)"></div>
+                    <div class="select_text">all</div>
+                </button>
                 {% for tag in tags %}
-                    {% if tag == tag_selected %}
-                        <button id="tag_select" value={{ tag.id }} name="tag" class="select-selected" style="--tag_color: {{tag.color}}">
-                            <div class="select_color"></div>
-                            <div class="select_text">{{ tag.title }}</div>
-                        </button>
-                    {% else %}
-                        <button id="tag_select" value={{ tag.id }} name="tag" class="select" style="--tag_color: {{tag.color}}">
-                            <div class="select_color"></div>
-                            <div class="select_text">{{ tag.title }}</div>
-                        </button>
-                    {% endif %}
+                    <button id="tag_select" value={{ tag.id }} name="tag_select" class="select" style="--tag_color: {{tag.color}}">
+                        <div class="select_color"></div>
+                        <div class="select_text">{{ tag.title }}</div>
+                    </button>
                 {% endfor %}
             </div>
 
-            <div class="notes_container">
-
-                {% csrf_token %}
+            <div class="notes_container"  id='note' value=2>
                 {% if tag_selected %}
                     {% for note in notes_taged %}
                         <div class="note">
@@ -79,7 +62,6 @@
             </div>
         </div>
     </div>
-
-    <script src="../js/dashboard.js"></script>
+    <script src="{% static 'js/notes/dashboard.js' %}"></script>
 </body>
 </html>

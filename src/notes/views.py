@@ -111,6 +111,7 @@ def dashboard(request):
                 notes_tagged = list(note_user.notes.all().filter(tags=tag_selected))
 
     print("Test 1")
+
     if tag_filter == "all":
         print("Test 2")
         tag_selected = None
