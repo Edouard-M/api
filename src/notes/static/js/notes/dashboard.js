@@ -1,34 +1,93 @@
-let notes_container = document.getElementById("note");
-
 let select_buttons = document.getElementsByName("tag_select");
 
 let select_all_button = document.getElementById('all');
 select_all_button.className = "select selected";
 
+let notes_container = document.getElementById("notes_container");
+const all_notes = JSON.parse(document.getElementById('all_notes_json').textContent);
+
+let tag_selected = 0;
+
+
+function display_notes(notes_container, all_notes, tag_selected){
+
+    notes_container.innerHTML = "";
+
+    all_notes.forEach(note_json => {
+        if ((note_json["tags"].includes(parseInt(tag_selected))) || (parseInt(tag_selected) == 0)){
+            /*
+            <div class="note">
+                <div class="note_left">
+                    <div class="note_left_title">{{ note.title }}</div>
+                    <div class="note_left_code_container">
+                        <div class="note_left_code">{{ note.code }}</div>
+                        <div class="note_left_copy">O</div>
+                    </div>
+                </div>
+                <div class="note_right">
+                    <div class="note_right_button"> V </div>
+                </div>
+            </div>
+            */
+
+            let note = document.createElement("div", "note");
+            note.className = "note";
+
+            let note_left = document.createElement("div");
+            note_left.className = "note_left";
+
+            let note_left_title = document.createElement("div");
+            note_left_title.className = "note_left_title";
+
+            let note_left_code_container = document.createElement("div");
+            note_left_code_container.className = "note_left_code_container";
+
+            let note_left_code = document.createElement("div");
+            note_left_code.className = "note_left_code";
+
+            let note_left_copy = document.createElement("div");
+            note_left_copy.className = "note_left_copy";
+
+
+            let note_right = document.createElement("div");
+            note_right.className = "note_right";
+
+            let note_right_button = document.createElement("div");
+            note_right_button.className = "note_right_button";
+
+
+            note_left_title.innerText = note_json["title"];
+            note_left_code.innerText = note_json["code"];
+            note_left_copy.innerText = "O";
+            note_right_button.innerText = "V";
+
+
+            note_left_code_container.appendChild(note_left_code)
+            note_left_code_container.appendChild(note_left_copy)
+            note_left.appendChild(note_left_title)
+            note_left.appendChild(note_left_code_container)
+            note.appendChild(note_left)
+            note_right.appendChild(note_right_button)
+            note.appendChild(note_right)
+
+            notes_container.appendChild(note);
+
+            return notes_container;
+        }
+    })
+}
+
+
 select_buttons.forEach(button => {
+
     button.addEventListener('click', (e) => {
         for (let i=0 ; i < select_buttons.length ; i++) {
             select_buttons[i].className = "select";
         }
         button.className = "select selected";
+        tag_selected = button.value;
+        display_notes(notes_container, all_notes, tag_selected);
     })
 })
 
-let test = document.createElement("div");
-test.className = "note";
-notes_container.appendChild(test);
-
-let all_notes_element = document.getElementById("all_notes");
-
-let all_notes = all_notes_element.getAttribute("data-table");
-//var all_notes = all_notes_element.getAttribute("data-table");
-//let truc = notes_container.value;
-
-console.log(`All = ${all_notes}`);
-
-/*
-all_notes.forEach(note => {
-    console.log(`Note = ${note}`);
-})
-*/
-
+display_notes(notes_container, all_notes, tag_selected);

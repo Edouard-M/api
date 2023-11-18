@@ -7,14 +7,13 @@
     <link rel="stylesheet" href="{% static 'css/notes/dashboard.css' %}">
 </head>
 <body>
-    <input type="hidden" id="all_notes" data-table={{ all_notes }}>
 
     <div class="dashboard">
         <div class="dashboard_header">
         </div>
         <div class="dashboard_container">
             <div class="select_container" method="post">
-                <button id="all" value="all" name="tag_select" class="select" style="--tag_color: black">
+                <button id="all" value=0 name="tag_select" class="select" style="--tag_color: black">
                     <div class="select_color" style="background-color: rgba(0,0,0,1)"></div>
                     <div class="select_text">all</div>
                 </button>
@@ -26,42 +25,12 @@
                 {% endfor %}
             </div>
 
-            <div class="notes_container"  id='note' value=2>
-                {% if tag_selected %}
-                    {% for note in notes_taged %}
-                        <div class="note">
-                            <div class="note_left">
-                                <div class="note_left_title">{{ note.title }}</div>
-                                <div class="note_left_code_container">
-                                    <div class="note_left_code">{{ note.code }}</div>
-                                    <div class="note_left_copy">O</div>
-                                </div>
-                            </div>
-                            <div class="note_right">
-                                <div class="note_right_button"> V </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% else %}
-                    {% for note in all_notes %}
-                        <div class="note">
-                            <div class="note_left">
-                                <div class="note_left_title">{{ note.title }}</div>
-                                <div class="note_left_code_container">
-                                    <div class="note_left_code">{{ note.code }}</div>
-                                    <div class="note_left_copy">O</div>
-                                </div>
-                            </div>
-                            <div class="note_right">
-                                <div class="note_right_button"> V </div>
-                            </div>
-                        </div>
-                    {% endfor %}
-                {% endif %}
+            <div class="notes_container"  id='notes_container'>
 
             </div>
         </div>
     </div>
+    {{all_notes_json|json_script:"all_notes_json"}}
     <script src="{% static 'js/notes/dashboard.js' %}"></script>
 </body>
 </html>

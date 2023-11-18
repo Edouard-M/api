@@ -1,3 +1,4 @@
+import json
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.db.models import Q
@@ -88,13 +89,12 @@ def dashboard(request):
 
     user = request.user
     note_user = Note_User.objects.get(username=user.username)
+    admin = ""
+    if note_user.is_superuser:
+        admin = "(admin)"
+
     tags = list(note_user.tags.all())
-
-
-    tag_selected = None
-    tag_filter = "all"
-    notes_tagged = None
-    all_notes = None
+    all_notes = list(note_user.notes.all())
 
     if request.method == "POST":
         if 'delete' in request.POST:
@@ -103,33 +103,32 @@ def dashboard(request):
             print(f"delete {note}")
             note.delete()
             return redirect('dashboard')
-        elif "tag" in request.POST:
-            tag_filter = request.POST.get("tag", None)
-            if tag_filter != "all":
-                #tag_selected = note_user.tags.all().filter(id=tag_filter).first()
-                tag_selected = Tag.objects.get(id=tag_filter)
-                notes_tagged = list(note_user.notes.all().filter(tags=tag_selected))
+                #tag_selected = Tag.objects.get(id=tag_filter)
+                #notes_tagged = list(note_user.notes.all().filter(tags=tag_selected))
 
-    print("Test 1")
+    all_notes_json = []
+    if all_notes:
+        for note in all_notes:
 
-    if tag_filter == "all":
-        print("Test 2")
-        tag_selected = None
-        all_notes = list(note_user.notes.all())
+            note_tags = note.tags.all()
+            tags_array = []
+            for note_tag in note_tags:
+                tags_array.append(note_tag.id)
 
-    admin = ""
-
-    if note_user.is_superuser:
-        admin = "(admin)"
+            note_dict = {
+                "title": note.title,
+                "code": note.code,
+                "description": note.description,
+                "tags": tags_array,
+            }
+            all_notes_json.append(note_dict)
 
     context = {
         "title": f"Dashboard: {note_user} {admin}",
 
         "tags": tags,
-        "tag_selected": tag_selected,
 
-        "all_notes": all_notes,
-        "notes_taged": notes_tagged,
+        "all_notes_json": all_notes_json,
     }
 
     return render(request, "notes/dashboard.html", context=context)
