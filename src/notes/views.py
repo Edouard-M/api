@@ -105,6 +105,10 @@ def dashboard(request):
             return redirect('dashboard')
                 #tag_selected = Tag.objects.get(id=tag_filter)
                 #notes_tagged = list(note_user.notes.all().filter(tags=tag_selected))
+        elif "new_note" in request.POST:
+            return redirect('new_note')
+        elif "logout" in request.POST:
+            return redirect('log-out')
 
     all_notes_json = []
     if all_notes:
@@ -125,6 +129,8 @@ def dashboard(request):
 
     context = {
         "title": f"Dashboard: {note_user} {admin}",
+
+        "user": note_user,
 
         "tags": tags,
 
