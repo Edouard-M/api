@@ -23,6 +23,7 @@ function display_notes(notes_container, all_notes, tag_selected){
                         <div class="note_left_code">{{ note.code }}</div>
                         <div class="note_left_copy">O</div>
                     </div>
+                    <div class="note_left_description"></div>
                 </div>
                 <div class="note_right">
                     <div class="note_right_button"> V </div>
@@ -30,8 +31,9 @@ function display_notes(notes_container, all_notes, tag_selected){
             </div>
             */
 
-            let note = document.createElement("div", "note");
+            let note = document.createElement("div");
             note.className = "note";
+            note.setAttribute("name","test");
 
             let note_left = document.createElement("div");
             note_left.className = "note_left";
@@ -48,6 +50,9 @@ function display_notes(notes_container, all_notes, tag_selected){
             let note_left_copy = document.createElement("div");
             note_left_copy.className = "note_left_copy";
 
+            let note_left_description = document.createElement("div");
+            note_left_description.className = "note_left_description";
+
 
             let note_right = document.createElement("div");
             note_right.className = "note_right";
@@ -58,17 +63,36 @@ function display_notes(notes_container, all_notes, tag_selected){
 
             note_left_title.innerText = note_json["title"];
             note_left_code.innerText = note_json["code"];
+            note_left_description.innerText = note_json["description"];
             note_left_copy.innerText = "O";
             note_right_button.innerText = "V";
 
 
-            note_left_code_container.appendChild(note_left_code)
-            note_left_code_container.appendChild(note_left_copy)
-            note_left.appendChild(note_left_title)
-            note_left.appendChild(note_left_code_container)
-            note.appendChild(note_left)
-            note_right.appendChild(note_right_button)
-            note.appendChild(note_right)
+            note_left_code_container.appendChild(note_left_code);
+            note_left_code_container.appendChild(note_left_copy);
+            note_left.appendChild(note_left_title);
+            note_left.appendChild(note_left_code_container);
+            note_left.appendChild(note_left_description);
+            note.appendChild(note_left);
+            note_right.appendChild(note_right_button);
+            note.appendChild(note_right);
+
+            note.addEventListener('click', (e) => {
+
+                let note_is_active = false;
+                if (note.className == "note note_selected"){
+                    note_is_active = true;
+                }
+
+                let all_notes_html = document.getElementsByName("test");
+                all_notes_html.forEach(note_not_selected => {
+                    note_not_selected.className = "note";
+                })
+
+                if (note_is_active == false){
+                    note.className = "note note_selected";
+                }
+            })
 
             notes_container.appendChild(note);
 

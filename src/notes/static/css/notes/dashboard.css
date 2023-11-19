@@ -137,11 +137,11 @@ body{
 .notes_container{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: top;
 
     width: 640px;
 
-    gap: 0.8rem;
+    height: auto;
 
     padding-left: 3rem;
     padding-right: 3rem;
@@ -162,12 +162,21 @@ body{
     cursor: pointer;
     transition: 300ms cubic-bezier(0.4,0.01,0.165,0.99);
     height:70px;
+
+    margin-top: 0.8rem;
 }
 
 .note:hover{
     box-shadow: 0 .5rem 1.5rem var(--shadow-note-hover);
+    height: 150px;
+}
 
-    height:150px;
+.note:hover > .note_right > .note_right_button{
+    transform: rotate(0deg);
+}
+
+.note_selected{
+    height: 150px;
 }
 
 .note_left{
@@ -188,6 +197,7 @@ body{
     color: var(--color-text-accent);
     font-weight: 400;
     font-size: 0.85rem;
+    flex-shrink: 0;
 }
 
 .note_left_code_container{
@@ -200,6 +210,9 @@ body{
 
     width: 100%;
     height: 35px;
+
+    resize: none;
+    flex-shrink: 0;
 }
 
 .note_left_code{
@@ -229,6 +242,19 @@ body{
     width: 3.5rem;
 }
 
+.note_left_description{
+    display: flex;
+
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--color-text);
+
+    overflow: hidden;
+    margin-top: 0.6rem;
+
+    margin-left: 0.4rem;
+}
+
 
 .note_right{
     display: flex;
@@ -253,9 +279,3 @@ body{
     border-radius: 0.5rem;
     margin-top: 0.7rem;
 }
-
-.note:hover > .note_right > .note_right_button{
-    transform: rotate(180deg);
-}
-
-
