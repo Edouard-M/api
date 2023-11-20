@@ -208,3 +208,12 @@ def new_note(request):
     }
 
     return render(request, "notes/new_note.html", context=context)
+
+
+def test(request):
+
+    context = {
+        "title": "Test",
+    }
+
+    return render(request, "notes/test.html", context=context)
