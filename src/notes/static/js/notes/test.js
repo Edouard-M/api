@@ -34,11 +34,13 @@ function skewSection(idStr, size) {
     }
 }
 
-function testSection(idStr, size, xOffset, yOffset) {
+function testSection(idStr, rotate, x, y, skew, size) {
     var domElemnt = document.getElementById(idStr);
     if (domElemnt) {
-        var transformAttr = ' rotate(' + size + '), translate(' + xOffset + ',' + yOffset + ')';
-        domElemnt.setAttribute('transform', transformAttr);
+        var transformAttr = ' rotate(' + rotate + 'deg) translate(' + x + 'rem,' + y + 'rem) skew(' + skew + 'deg) scale(' + size + ')';
+        //domElemnt.setAttribute('transform', transformAttr);
+        domElemnt.style.transform = transformAttr;
+
     }
 }
 
@@ -70,10 +72,25 @@ function getCursor(event) {
     rotateSection("mouth", -ratio*4);
 
 
-    //skewSection("head", ratio*2);
-    testSection("head", -ratio*3, ratio*2, 0);
-    //rotateSection("head", -ratio*3);
-    //skewSection("head", ratio*20);
+
+    testSection("head", rotate=(-ratio*2), x=(ratio*0.1), y=(0), skew=(ratio*2), size=(1));
+    testSection("head", rotate=(-ratio*2), x=(ratio*0.18), y=(0), skew=(-ratio*5), size=(1));
+    testSection("noze", rotate=(-ratio*2), x=(ratio*0.12), y=(0), skew=(ratio*8), size=1+Math.abs(ratio)/80);
+    testSection("mouth", rotate=(-ratio*2), x=(ratio*0.1), y=(0), skew=(ratio*8), size=1);
+
+    testSection("eye1", rotate=(-ratio*2), x=(ratio*0.1), y=(-((ratio)/15)), skew=(ratio*8), size=-((ratio)/15)+1);
+    testSection("eye2", rotate=(-ratio*2), x=(ratio*0.1), y=(((ratio)/15)), skew=(ratio*8), size=((ratio)/15)+1);
+
+    testSection("mustache1", rotate=(-ratio*2), x=(ratio*0.2), y=(-((ratio)/15)), skew=(ratio*8), size=-((ratio)/15)+1);
+    testSection("mustache2", rotate=(-ratio*2), x=(ratio*0.2), y=(((ratio)/15)), skew=(ratio*8), size=((ratio)/15)+1);
+
+    testSection("ear1", rotate=(-ratio*2), x=(ratio*0.1), y=(-((ratio)/15)), skew=(0), size=-((ratio)/15)+1);
+    testSection("ear2", rotate=(-ratio*2), x=(ratio*0.1), y=(((ratio)/15)), skew=(0), size=((ratio)/15)+1);
+
+
+    let testElem = document.getElementById("test");
+    ratio
+    testElem.innerText = Math.round(ratio * 100) / 100;
 }
 
 //rotateSection("ear1", -2);

@@ -32,8 +32,13 @@ button{
 }
 
 .test{
+    display: flex;
     width: 500px;
     height: 100px;
     background-color: red;
     transform:skew(20deg);
+    color: white;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
 }
