@@ -34,6 +34,14 @@ function skewSection(idStr, size) {
     }
 }
 
+function testSection(idStr, size, xOffset, yOffset) {
+    var domElemnt = document.getElementById(idStr);
+    if (domElemnt) {
+        var transformAttr = ' rotate(' + size + '), translate(' + xOffset + ',' + yOffset + ')';
+        domElemnt.setAttribute('transform', transformAttr);
+    }
+}
+
 function getCursor(event) {
     let x = event.clientX - event.currentTarget.offsetLeft;
     //let y = event.clientY - event.currentTarget.offsetTop;
@@ -61,7 +69,10 @@ function getCursor(event) {
     rotateSection("noze", -ratio*4);
     rotateSection("mouth", -ratio*4);
 
-    skewSection("mouth", ratio*2);
+
+    //skewSection("head", ratio*2);
+    testSection("head", -ratio*3, ratio*2, 0);
+    //rotateSection("head", -ratio*3);
     //skewSection("head", ratio*20);
 }
 
