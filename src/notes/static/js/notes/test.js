@@ -37,7 +37,7 @@ function skewSection(idStr, size) {
 function testSection(idStr, rotate, x, y, skew, size) {
     var domElemnt = document.getElementById(idStr);
     if (domElemnt) {
-        var transformAttr = ' rotate(' + rotate + 'deg) translate(' + x + 'rem,' + y + 'rem) skew(' + skew + 'deg) scale(' + size + ')';
+        var transformAttr = ' rotate(' + rotate + 'deg) translate(' + x + 'rem,' + y + 'rem) skew(' + skew + 'deg,'+ -skew + 'deg) scale(' + size + ')';
         //domElemnt.setAttribute('transform', transformAttr);
         domElemnt.style.transform = transformAttr;
 
