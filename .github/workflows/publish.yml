@@ -28,6 +28,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
+      - name: Collect static
+        run: python manage.py collectstatic
+
+      - name: Migrate
+        run: python manage.py migrate
+
       - name: Push
         uses: s0/git-publish-subdir-action@develop
         env:
