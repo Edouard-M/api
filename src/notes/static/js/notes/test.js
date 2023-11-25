@@ -75,21 +75,41 @@ function getCursor(event) {
 
     testSection("head", rotate=(-ratio*2), x=(ratio*0.1), y=(0), skew=(ratio*2), size=(1));
     testSection("head", rotate=(-ratio*2), x=(ratio*0.18), y=(0), skew=(-ratio*5), size=(1));
-    testSection("noze", rotate=(-ratio*2), x=(ratio*0.12), y=(0), skew=(ratio*8), size=1+Math.abs(ratio)/80);
-    testSection("mouth", rotate=(-ratio*2), x=(ratio*0.1), y=(0), skew=(ratio*8), size=1);
+    testSection("noze", rotate=(-ratio*2), x=(ratio*0.12), y=(((Math.abs(ratio))/10)), skew=(ratio*8), size=1+Math.abs(ratio)/80);
+    testSection("mouth", rotate=(-ratio*2), x=(ratio*0.1), y=(((Math.abs(ratio))/10)), skew=(ratio*8), size=1);
+    testSection("mouth_left", rotate=(-ratio*2), x=(ratio*0.1), y=(((Math.abs(ratio))/10)), skew=(ratio*8), size=-((ratio)/3.5)+1);
+    testSection("mouth_right", rotate=(-ratio*2), x=(ratio*0.1), y=(((Math.abs(ratio))/10)), skew=(ratio*10), size=((ratio)/3.5)+1);
 
-    testSection("eye1", rotate=(-ratio*2), x=(ratio*0.1), y=(-((ratio)/15)), skew=(ratio*8), size=-((ratio)/15)+1);
-    testSection("eye2", rotate=(-ratio*2), x=(ratio*0.1), y=(((ratio)/15)), skew=(ratio*8), size=((ratio)/15)+1);
+    testSection("eye1", rotate=(-ratio*2), x=(ratio*0.2 + 0), y=(-((ratio)/15)), skew=(ratio*8), size=-((ratio)/10)+1);
+    testSection("eye2", rotate=(-ratio*2), x=(ratio*0.2), y=(((ratio)/15)), skew=(ratio*8), size=((ratio)/10)+1);
 
-    testSection("mustache1", rotate=(-ratio*2), x=(ratio*0.2), y=(-((ratio)/15)), skew=(ratio*8), size=-((ratio)/15)+1);
-    testSection("mustache2", rotate=(-ratio*2), x=(ratio*0.2), y=(((ratio)/15)), skew=(ratio*8), size=((ratio)/15)+1);
+    testSection("mustache1", rotate=(-ratio*2), x=(ratio*0.2), y=(-((ratio)/15)), skew=(ratio*8), size=-((ratio)/10)+1);
+    testSection("mustache2", rotate=(-ratio*2), x=(ratio*0.2), y=(((ratio)/15)), skew=(ratio*8), size=((ratio)/10)+1);
 
-    testSection("ear1", rotate=(-ratio*2), x=(ratio*0.1), y=(-((ratio)/15)), skew=(0), size=-((ratio)/15)+1);
-    testSection("ear2", rotate=(-ratio*2), x=(ratio*0.1), y=(((ratio)/15)), skew=(0), size=((ratio)/15)+1);
+    testSection("ear1", rotate=(-ratio*6), x=(ratio*0.1), y=(-((ratio)/15)), skew=(0), size=-((ratio)/10)+1);
+    testSection("ear2", rotate=(-ratio*6), x=(ratio*0.1), y=(((ratio)/15)), skew=(0), size=((ratio)/10)+1);
 
+    let noze_path = document.getElementById("noze_path");
+    noze_path.setAttribute('d', `M ${ratio*0.8-2.3} -5.7 C -1.6 -6.4 1.6 -6.4 ${ratio*0.8+2.3} -5.7 C 1.6 -3.6 -1.6 -3.6 ${ratio*0.8-2.3} -5.7`);
+
+    let mouth_right_path = document.getElementById("mouth_right_path");
+    mouth_right_path.setAttribute('d', `M ${ratio*1+3} -2 C 2 0 0 -1 0 -4`);
+    let mouth_left_path = document.getElementById("mouth_left_path");
+    mouth_left_path.setAttribute('d', `M ${ratio*1-3} -2 C -2 0 0 -1 0 -4`);
+
+    let head_white_path = document.getElementById("head_white_path");
+    head_white_path.setAttribute('d', `m -18 4 C -21 1 -22 -2 -22 ${ratio*4-3} C -20 ${ratio*6-5} -18 -4 -14 -3 C -8 -1 -6 -2 ${-ratio*0.2-5} ${ratio*0.1-4} C ${-ratio*0.2-3} ${ratio*0.1-8} ${-ratio*0.2+3} ${-ratio*0.1-8} ${ratio*0.2+5} ${-ratio*0.1-4} C 6 -2 8 -1 14 ${-ratio*0-3} C 18 -4 20 ${-ratio*6-5} 22 ${-ratio*4-3} C 22 -2 21 1 18 4 C 14 7 13 8 9 10 C 4 13 -4 13 -9 10 C -13 8 -14 7 -18 4`);
+
+    let head_purple_path = document.getElementById("head_purple_path");
+    head_purple_path.setAttribute('d', `m -18 4 C -21 1 -21 0 -21 0 C -18 ${ratio*4-1} -17 ${ratio*1+2} -15 ${ratio*1+3} C ${ratio*1-4} ${Math.abs(ratio)*2+10} ${ratio*1+4} ${Math.abs(ratio)*2+10} 15 ${-ratio*1+3} C 17  ${-ratio*1+2} 18  ${-ratio*4-1} 21 0 C 21 0 21 1 18 4 C 14 7 13 8 9 10 C 4 13 -4 13 -9 10 C -13 8 -14 7 -18 4`);
+
+    let head_stroke_path = document.getElementById("head_stroke_path");
+    head_stroke_path.setAttribute('d', `m -18 4 C ${ratio*1.5-21} 1 ${ratio*1.5-22} -2 ${ratio*1.5-22} -3 C ${ratio*1.5-22} -6 ${ratio*1.5-22} -10 ${ratio*1.5-20} -13 C ${ratio*1.5-11} -28 ${ratio*1.5+11} -28 ${ratio*1.5+20} -13 C ${ratio*1.5+22} -10 ${ratio*1.5+22} -6 ${ratio*1.5+22} -3 C ${ratio*1.5+22} -2 ${ratio*1.5+22} 1 18 4 C 14 7 13 8 9 10 C 4 13 -4 13 -9 10 C -13 8 -14 7 -18 4`);
+
+    let head_fill_path = document.getElementById("head_fill_path");
+    head_fill_path.setAttribute('d', `m -18 4 C ${ratio*1.5-21} 1 ${ratio*1.5-22} -2 ${ratio*1.5-22} -3 C ${ratio*1.5-22} -6 ${ratio*1.5-22} -10 ${ratio*1.5-20} -13 C ${ratio*1.5-11} -28 ${ratio*1.5+11} -28 ${ratio*1.5+20} -13 C ${ratio*1.5+22} -10 ${ratio*1.5+22} -6 ${ratio*1.5+22} -3 C ${ratio*1.5+22} -2 ${ratio*1.5+22} 1 18 4 C 14 7 13 8 9 10 C 4 13 -4 13 -9 10 C -13 8 -14 7 -18 4`);
 
     let testElem = document.getElementById("test");
-    ratio
     testElem.innerText = Math.round(ratio * 100) / 100;
 }
 
