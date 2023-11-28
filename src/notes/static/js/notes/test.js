@@ -111,6 +111,39 @@ function getCursor(event) {
 
     let testElem = document.getElementById("test");
     testElem.innerText = Math.round(ratio * 100) / 100;
+
+
+
+
+
+
+
+
+
+
+
+
+    testSection("test_head", rotate=(-ratio*2), x=(ratio*0.18), y=(0), skew=(-ratio*5), size=(1));
+    testSection("test_noze", rotate=(-ratio*2), x=(ratio*0.12), y=(((Math.abs(ratio))/10)), skew=(ratio*8), size=1+Math.abs(ratio)/80);
+    testSection("test_mouth_left", rotate=(-ratio*2), x=(ratio*0.1), y=(((Math.abs(ratio))/10)), skew=(ratio*8), size=-((ratio)/3.5)+1);
+    testSection("test_mouth_right", rotate=(-ratio*2), x=(ratio*0.1), y=(((Math.abs(ratio))/10)), skew=(ratio*10), size=((ratio)/3.5)+1);
+
+    testSection("test_eye1", rotate=(-ratio*2), x=(ratio*0.2 + 0), y=(-((ratio)/15)), skew=(ratio*8), size=-((ratio)/10)+1);
+    testSection("test_eye2", rotate=(-ratio*2), x=(ratio*0.2), y=(((ratio)/15)), skew=(ratio*8), size=((ratio)/10)+1);
+
+    testSection("test_ear1", rotate=(-ratio*6), x=(ratio*0.1), y=(-((ratio)/15)), skew=(0), size=-((ratio)/10)+1);
+    testSection("test_ear2", rotate=(-ratio*6), x=(ratio*0.1), y=(((ratio)/15)), skew=(0), size=((ratio)/10)+1);
+
+    let test_noze_path = document.getElementById("test_noze_path");
+    test_noze_path.setAttribute('d', `M ${ratio*0.8-2.3} -5.7 C -1.6 -6.4 1.6 -6.4 ${ratio*0.8+2.3} -5.7 C 1.6 -3.6 -1.6 -3.6 ${ratio*0.8-2.3} -5.7`);
+
+    let test_mouth_right_path = document.getElementById("test_mouth_right_path");
+    test_mouth_right_path.setAttribute('d', `M ${ratio*1+3} -2 C 2 0 0 -1 0 -4`);
+    let test_mouth_left_path = document.getElementById("test_mouth_left_path");
+    test_mouth_left_path.setAttribute('d', `M ${ratio*1-3} -2 C -2 0 0 -1 0 -4`);
+
+    let test_testElem = document.getElementById("test");
+    test_testElem.innerText = Math.round(ratio * 100) / 100;
 }
 
 //rotateSection("ear1", -2);
