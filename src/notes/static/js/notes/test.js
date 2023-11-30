@@ -123,7 +123,7 @@ function getCursor(event) {
 
 
 
-    testSection("test_head", rotate=(-ratio*2), x=(ratio*0.18), y=(0), skew=(-ratio*5), size=(1));
+    //testSection("test_head", rotate=(-ratio*2), x=(ratio*0.18), y=(0), skew=(-ratio*5), size=(1));
     testSection("test_noze", rotate=(-ratio*2), x=(ratio*0.12), y=(((Math.abs(ratio))/10)), skew=(ratio*8), size=1+Math.abs(ratio)/80);
     testSection("test_mouth_left", rotate=(-ratio*2), x=(ratio*0.1), y=(((Math.abs(ratio))/10)), skew=(ratio*8), size=-((ratio)/3.5)+1);
     testSection("test_mouth_right", rotate=(-ratio*2), x=(ratio*0.1), y=(((Math.abs(ratio))/10)), skew=(ratio*10), size=((ratio)/3.5)+1);
@@ -147,7 +147,7 @@ function getCursor(event) {
         -21.9 0.7 C -23 0.7 -23.9 0.5
         -24.8 0 C -25.9 -0.5 -26.1 -0.9
         -25 -1.7 C -23.2 -3 -22.5 -4.1 -22
-        -6 C -21.6 -8.5 -22 -10 ${ratio*1-20} -13 C
+        -6 C -21.6 -8.5 -22 -10 -20 -13 C
         -11 -28 12 -28 20 -13 C 22 -10
         21.6 -8.5 22 -6 C 22.5 -4.1 23.2
         -3 25 -1.7 C 26.1 -0.9 25.9 -0.5
@@ -161,22 +161,22 @@ function getCursor(event) {
 
     let test_head_stroke_path = document.getElementById("test_head_stroke_path");
     test_head_stroke_path.setAttribute('d',
-        `M -18 4 C -19.7 3.5 -21.5 3.7
-        -23.3 3.5 C -24 3.4 -24.1 2.7
-        -23.4 2.4 C -22.9 2.1 -21.9 1.4
-        -21.9 0.7 C -23 0.7 -23.9 0.5
-        -24.8 0 C -25.9 -0.5 -26.1 -0.9
-        -25 -1.7 C -23.2 -3 -22.5 -4.1 -22
-        -6 C -21.6 -8.5 -22 -10 ${ratio*1-20} -13 C
-        -11 -28 12 -28 20 -13 C 22 -10
+        `M ${ratio*3-18} 4 C ${ratio*3-19.7} 3.5 ${ratio*3-21.5} 3.7
+        ${ratio*6-23.3} 3.5 C ${ratio*6-24} 3.4 ${ratio*6-24.1} 2.7
+        ${ratio*6-23.4} 2.4 C ${ratio*6-22.9} 2.1 ${ratio*6-21.9} 1.4
+        ${ratio*6-21.9} 0.7 C ${ratio*6-23} 0.7 ${ratio*6-23.9} 0.5
+        ${ratio*6-24.8} 0 C ${ratio*6-25.9} -0.5 ${ratio*6-26.1}-0.9
+        ${ratio*6-25} -1.7 C ${ratio*6-23.2} -3 ${ratio*6-22.5} -4.1 ${ratio*6-22}
+        -6 C ${ratio*5-21.6} -8.5 ${ratio*5-22} -10 ${ratio*4-20} -13 C
+        ${ratio*4 -11} -28 12 -28 20 -13 C 22 -10
         21.6 -8.5 22 -6 C 22.5 -4.1 23.2
         -3 25 -1.7 C 26.1 -0.9 25.9 -0.5
         24.8 0 C 23.9 0.5 23 0.7 21.9 0.7
         C 21.9 1.4 22.9 2.1 23.4 2.4 C
         24.1 2.7 24 3.4 23.3 3.5 C 21.5
         3.7 19.7 3.5 18 4 C 15 5 13 8 9 10
-        C 4 13 -4 13 -9 10 C -13 8 -15.2 5
-        -18 4`
+        C 4 13 -4 13 -9 10 C -13 8 ${ratio*3-15.2} 5
+        ${ratio*3-18} 4`
     );
 
     let test_noze_path = document.getElementById("test_noze_path");
