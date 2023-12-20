@@ -39,6 +39,6 @@ jobs:
         env:
           REPO: self
           BRANCH: deploy # The branch name where you want to push the assets
-          FOLDER: build # The directory where your assets are generated
+          FOLDER: . # The directory where your assets are generated
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MESSAGE: "Build: ({sha}) {msg}" # The commit message
