@@ -1,0 +1,6 @@
+Build:
+docker build . -t docker-django-v0.0
+
+Run:
+docker run docker-django-v0.0
+docker run -p 8001:8000 -it --rm docker-django-v0.0
